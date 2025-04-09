@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
 
 Route::get('/feedback', function () {
     return response()->json(
-        App\Models\Feedback::get()
+        App\Models\Feedback::orderBy('created_at', 'desc')->get()
     );
 });
 
@@ -19,6 +19,15 @@ Route::post('/feedback', function (Request $request) {
         'message' => 'required|string',
         'rating' => 'required|integer|between:1,5'
     ]);
-
-    return response()->json(['message' => 'Feedback received'], 201);
+    $feedback = Feedback::create([
+        'customer_name' => $validated['customer_name'],
+        'message' => $validated['message'],
+        'rating' => $validated['rating'],
+    ]);
+    if ($feedback) {
+        return response()->json(['message' => 'Feedback received'], 201);
+    } else {
+        return response()->json(['message' => 'Failed to save feedback'], 50);
+    }
 });
+
