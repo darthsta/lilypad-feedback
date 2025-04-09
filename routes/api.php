@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
 
 Route::get('/feedback', function () {
     return response()->json(
-        App\Models\Feedback::orderBy('created_at', 'desc')->get()
+        Feedback::orderBy('created_at', 'desc')->get()
     );
 });
 
