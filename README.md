@@ -28,6 +28,12 @@ A customer feedback system built with Laravel (backend) and React (frontend) fea
 
   php artisan migrate
 
+  **Use Tinker with FeedbackFactory**
+
+  php artisan tinker
+    *then*
+    \App\Models\Feedback::factory()->count(10)->create();
+
   php artisan serve
 
   npm run dev # in another terminal instance
