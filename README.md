@@ -15,18 +15,16 @@ A customer feedback system built with Laravel (backend) and React (frontend) fea
 
 ## Installation
 
-1. **Clone the repository**
+**Clone the repository**
 
    git clone https://github.com/your-repo/lilypad-feedback.git
    cd lilypad-feedback
 
-   composer install
+   2composer install
 
    npm install
 
-   touch database/database.sqlite  # For SQLite
-   
-  # Or configure MySQL in .env
+   touch database/database.sqlite  # For SQLite Or configure MySQL in .env
 
   php artisan migrate
 
