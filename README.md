@@ -20,7 +20,7 @@ A customer feedback system built with Laravel (backend) and React (frontend) fea
    git clone https://github.com/your-repo/lilypad-feedback.git
    cd lilypad-feedback
 
-   2composer install
+   composer install
 
    npm install
 
