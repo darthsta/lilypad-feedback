@@ -19,7 +19,9 @@ export default function FeedbackApp() {
     // Fetch feedback data
     useEffect(() => {
         setLoading(true);
-        axios.get(`${API_BASE}/feedback${filter ? `?rating=${filter}` : ''}`)
+        axios.get(`${API_BASE}/feedback`, {
+            params: filter ? { rating: filter } : {}
+        })
             .then(res => {
                 const data = res.data;
                 setFeedbacks(Array.isArray(data) ? data : []);
