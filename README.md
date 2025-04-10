@@ -34,8 +34,8 @@ A customer feedback system built with Laravel (backend) and React (frontend) fea
     *then*
     \App\Models\Feedback::factory()->count(10)->create();
 
-  php artisan serve
-
-  npm run dev # in another terminal instance
+  npm run dev
+  
+  php artisan serve # in separate terminal
 
   #access the app via http://localhost:8000 
