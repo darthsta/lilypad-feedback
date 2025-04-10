@@ -7,9 +7,16 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Rule;
 
 
-Route::get('/feedback', function () {
+Route::get('/feedback', function (Request $request) {
+    $query = Feedback::query();
+
+    // Check if a 'rating' query parameter is provided
+    if ($request->has('rating')) {
+        $query->where('rating', $request->input('rating'));
+    }
+
     return response()->json(
-        Feedback::orderBy('created_at', 'desc')->get()
+        $query->orderBy('created_at', 'desc')->get()
     );
 });
 
