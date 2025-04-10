@@ -80,48 +80,48 @@ export default function FeedbackApp() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 p-6">
-          <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">Customer Feedback Portal</h1>
-          
-          {/* This is the key container for the side-by-side layout */}
-          <div className="flex flex-col lg:flex-row gap-8 w-full max-w-7xl mx-auto">
-            {/* Left Panel - Form (will be 50% width on large screens) */}
-            <div className="w-full lg:w-1/2 bg-white p-6 rounded-xl shadow-md">
-              <h2 className="text-xl font-bold mb-4 text-gray-700">Submit Feedback</h2>
+      <div className="min-vh-100 bg-light p-4">
+        <h1 className="text-center mb-5 display-5 text-dark">Customer Feedback Portal</h1>
+        
+        <div className="row g-4">
+          {/* Left Panel - Form */}
+          <div className="col-lg-6">
+            <div className="bg-white p-4 rounded shadow-sm">
+              <h2 className="h4 fw-bold mb-4 text-secondary">Submit Feedback</h2>
               
               {submitted && (
-                <div className="mb-4 p-3 bg-green-100 text-green-800 rounded-lg">
+                <div className="alert alert-success mb-4">
                   Thank you for your feedback!
                 </div>
               )}
               
               {error && (
-                <div className="mb-4 p-3 bg-red-100 text-red-800 rounded-lg">
+                <div className="alert alert-danger mb-4">
                   {error}
                 </div>
               )}
-      
-              <form onSubmit={handleSubmit} className="space-y-4">
+    
+              <form onSubmit={handleSubmit} className="vstack gap-3">
                 <div>
-                  <label htmlFor="customer_name" className="block mb-1 font-medium text-gray-700">Name *</label>
+                  <label htmlFor="customer_name" className="form-label fw-medium">Name *</label>
                   <input
                     id="customer_name"
                     type="text"
                     placeholder="Your name"
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="form-control p-3"
                     value={form.customer_name}
                     onChange={(e) => setForm({...form, customer_name: e.target.value})}
                     required
                     disabled={loading}
                   />
                 </div>
-      
+    
                 <div>
-                  <label htmlFor="message" className="block mb-1 font-medium text-gray-700">Message *</label>
+                  <label htmlFor="message" className="form-label fw-medium">Message *</label>
                   <textarea
                     id="message"
                     placeholder="Your feedback message"
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="form-control p-3"
                     rows="4"
                     value={form.message}
                     onChange={(e) => setForm({...form, message: e.target.value})}
@@ -129,59 +129,56 @@ export default function FeedbackApp() {
                     disabled={loading}
                   />
                 </div>
-      
+    
                 <div>
-                  <label className="block mb-2 font-medium text-gray-700">
-                    How happy are you? <span className="text-2xl">{EMOJI_SCALE[form.rating - 1]}</span>
+                  <label className="form-label fw-medium">
+                    How happy are you? <span className="fs-3">{EMOJI_SCALE[form.rating - 1]}</span>
                   </label>
-                  <div className="flex space-x-2">
+                  <div className="d-flex gap-2">
                     {[1, 2, 3, 4, 5].map((rating) => (
                       <button
                         key={rating}
                         type="button"
                         aria-label={`Rating ${rating}`}
-                        className={`text-3xl p-2 rounded-full transition-all ${
-                          form.rating === rating 
-                            ? 'bg-yellow-100 scale-110 shadow-inner' 
-                            : 'hover:bg-gray-100'
-                        }`}
+                        className={`btn p-2 fs-3 ${form.rating === rating ? 'bg-warning bg-opacity-25 scale-110' : 'bg-light'}`}
                         onClick={() => setForm({...form, rating})}
                         disabled={loading}
+                        style={{
+                          transform: form.rating === rating ? 'scale(1.1)' : 'scale(1)',
+                          transition: 'transform 0.2s ease-in-out'
+                        }}
                       >
                         {EMOJI_SCALE[rating - 1]}
                       </button>
                     ))}
                   </div>
                 </div>
-      
+    
                 <button 
                   type="submit" 
-                  className={`w-full py-3 px-4 rounded-lg text-white font-semibold ${
-                    loading ? 'bg-blue-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'
-                  } transition-colors`}
+                  className={`btn w-100 py-3 ${loading ? 'btn-secondary' : 'btn-primary'}`}
                   disabled={loading}
                 >
                   {loading ? (
-                    <span className="flex items-center justify-center">
-                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
+                    <span className="d-flex align-items-center justify-content-center">
+                      <span className="spinner-border spinner-border-sm me-2" role="status"></span>
                       Submitting...
                     </span>
                   ) : 'Submit Feedback'}
                 </button>
               </form>
             </div>
-      
-            {/* Right Panel - Feedback List (will be 50% width on large screens) */}
-            <div className="w-full lg:w-1/2 bg-white p-6 rounded-xl shadow-md">
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold text-gray-700">Recent Feedback</h2>
+          </div>
+    
+          {/* Right Panel - Feedback List */}
+          <div className="col-lg-6">
+            <div className="bg-white p-4 rounded shadow-sm h-100">
+              <div className="d-flex justify-content-between align-items-center mb-4">
+                <h2 className="h4 fw-bold text-secondary">Recent Feedback</h2>
                 <select
                   value={filter}
                   onChange={(e) => setFilter(e.target.value)}
-                  className="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  className="form-select w-auto"
                   disabled={loading}
                 >
                   <option value="">All Ratings</option>
@@ -190,25 +187,25 @@ export default function FeedbackApp() {
                   ))}
                 </select>
               </div>
-      
+    
               {loading && feedbacks.length === 0 ? (
-                <div className="text-center py-8">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
+                <div className="text-center py-5">
+                  <div className="spinner-border text-primary" role="status"></div>
                 </div>
               ) : feedbacks.length === 0 ? (
-                <p className="text-gray-500 py-4 text-center">No feedback yet. Be the first to submit!</p>
+                <p className="text-muted py-4 text-center">No feedback yet. Be the first to submit!</p>
               ) : (
-                <div className="space-y-4 max-h-[calc(100vh-300px)] overflow-y-auto pr-2">
+                <div className="overflow-auto pe-2" style={{maxHeight: '70vh'}}>
                   {feedbacks.map(feedback => (
-                    <div key={feedback.id} className="p-4 border border-gray-200 rounded-lg hover:shadow-sm transition-shadow">
-                      <div className="flex justify-between items-start">
-                        <span className="font-semibold text-gray-800">{feedback.customer_name}</span>
-                        <span className="text-2xl" title={`Rating: ${feedback.rating}`}>
+                    <div key={feedback.id} className="p-3 mb-3 border rounded hover-shadow">
+                      <div className="d-flex justify-content-between align-items-start">
+                        <span className="fw-semibold text-dark">{feedback.customer_name}</span>
+                        <span className="fs-3" title={`Rating: ${feedback.rating}`}>
                           {EMOJI_SCALE[feedback.rating - 1]}
                         </span>
                       </div>
-                      <p className="mt-2 text-gray-600">{feedback.message}</p>
-                      <div className="mt-3 text-sm text-gray-400">
+                      <p className="mt-2 text-muted">{feedback.message}</p>
+                      <div className="mt-2 small text-muted">
                         {formatDate(feedback.created_at)}
                       </div>
                     </div>
@@ -218,5 +215,6 @@ export default function FeedbackApp() {
             </div>
           </div>
         </div>
-      );
+      </div>
+    );
 }
