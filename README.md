@@ -9,7 +9,7 @@ A customer feedback system built with Laravel (backend) and React (frontend) fea
 ## Prerequisites
 
 - PHP 8.0+
-- Node.js 16+
+- Node.js 20+
 - Composer
 - MySQL/SQLite
 
