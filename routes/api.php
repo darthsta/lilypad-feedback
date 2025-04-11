@@ -34,7 +34,7 @@ Route::post('/feedback', function (Request $request) {
     if ($feedback) {
         return response()->json(['message' => 'Feedback received'], 201);
     } else {
-        return response()->json(['message' => 'Failed to save feedback'], 50);
+        return response()->json(['message' => 'Failed to save feedback'], 501);
     }
 });
 
