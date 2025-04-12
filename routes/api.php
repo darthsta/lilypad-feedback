@@ -2,9 +2,7 @@
 
 use App\Models\Feedback;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Validation\Rule;
 
 
 Route::get('/feedback', function (Request $request) {
