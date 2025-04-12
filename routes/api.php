@@ -26,11 +26,7 @@ Route::post('/feedback', function (Request $request) {
         'message' => 'required|string',
         'rating' => 'required|integer|between:1,5'
     ]);
-    $feedback = Feedback::create([
-        'customer_name' => $validated['customer_name'],
-        'message' => $validated['message'],
-        'rating' => $validated['rating'],
-    ]);
+    $feedback = Feedback::create($validated);
     if ($feedback) {
         return response()->json(['message' => 'Feedback received'], 201);
     } else {
